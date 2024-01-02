@@ -17,7 +17,7 @@ class FeaturedBooksListView extends StatelessWidget {
       builder: (context, state) {
         if (state is FeaturedBooksSuccess) {
           return SizedBox(
-            height: MediaQuery.of(context).size.height * .3,
+            height: MediaQuery.of(context).size.height * .25,
             child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: state.books.length,

@@ -22,10 +22,13 @@ class SimilarBooksListview extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: CustomBookImage(
-                      imageUrl:
-                          state.books[index].volumeInfo.imageLinks?.thumbnail ??
-                              '',
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: CustomBookImage(
+                        imageUrl: state.books[index].volumeInfo.imageLinks
+                                ?.smallThumbnail ??
+                            '',
+                      ),
                     ),
                   );
                 }),

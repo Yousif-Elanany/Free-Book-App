@@ -5,13 +5,13 @@ import 'package:bookly/Features/home/presentation/views/book_details_view.dart';
 import 'package:bookly/Features/home/presentation/views/home_view.dart';
 import 'package:bookly/Features/search/presentation/views/search_view.dart';
 import 'package:bookly/core/utils/service_locator.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../Features/Splash/presentation/views/splash_view.dart';
 
 abstract class AppRouter {
-  static const kHomeView = '/homeView';
+  static const kHomePage = '/HomePage';
   static const kBookDetailsView = '/bookDetailsView';
   static const kSearchView = '/searchView';
 
@@ -26,8 +26,26 @@ abstract class AppRouter {
         builder: (context, state) => const SearchView(),
       ),
       GoRoute(
-        path: kHomeView,
-        builder: (context, state) => const HomeView(),
+        path: kHomePage,
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
+          key: state.pageKey,
+          child: const HomePage(),
+          transitionDuration: const Duration(seconds: 3),
+          transitionsBuilder: (BuildContext context,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+              Widget child) {
+            const begin = Offset(0, -2);
+            const end = Offset.zero;
+            final tween = Tween(begin: begin, end: end);
+            final offsetAnimation = animation.drive(tween);
+
+            return SlideTransition(
+              position: offsetAnimation,
+              child: child,
+            );
+          },
+        ),
       ),
       GoRoute(
         path: kBookDetailsView,
